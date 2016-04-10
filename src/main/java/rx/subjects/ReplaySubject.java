@@ -356,10 +356,10 @@ public final class ReplaySubject<T> extends Subject<T, T> {
     }
 
     /** The state storing the history and the references. */
-    final ReplayState<T, ?> state;
+    final ReplayState<T> state;
     /** The manager of subscribers. */
     final SubjectSubscriptionManager<T> ssm;
-    ReplaySubject(OnSubscribe<T> onSubscribe, SubjectSubscriptionManager<T> ssm, ReplayState<T, ?> state) {
+    ReplaySubject(OnSubscribe<T> onSubscribe, SubjectSubscriptionManager<T> ssm, ReplayState<T> state) {
         super(onSubscribe);
         this.ssm = ssm;
         this.state = state;
@@ -443,7 +443,7 @@ public final class ReplaySubject<T> extends Subject<T, T> {
      * The unbounded replay state.
      * @param <T> the input and output type
      */
-    static final class UnboundedReplayState<T> extends AtomicInteger implements ReplayState<T, Integer> {
+    static final class UnboundedReplayState<T> extends AtomicInteger implements ReplayState<T> {
         private final NotificationLite<T> nl = NotificationLite.instance();
         /** The buffer. */
         private final ArrayList<Object> list;
@@ -507,7 +507,6 @@ public final class ReplaySubject<T> extends Subject<T, T> {
             }
         }
 
-        @Override
         public Integer replayObserverFromIndex(Integer idx, SubjectObserver<? super T> observer) {
             int i = idx;
             while (i < get()) {
@@ -518,11 +517,6 @@ public final class ReplaySubject<T> extends Subject<T, T> {
             return i;
         }
 
-        @Override
-        public Integer replayObserverFromIndexTest(Integer idx, SubjectObserver<? super T> observer, long now) {
-            return replayObserverFromIndex(idx, observer);
-        }
-        
         @Override
         public int size() {
             int idx = get(); // acquire
@@ -580,7 +574,7 @@ public final class ReplaySubject<T> extends Subject<T, T> {
      * The bounded replay state. 
      * @param <T> the input and output type
      */
-    static final class BoundedState<T> implements ReplayState<T, NodeList.Node<Object>> {
+    static final class BoundedState<T> implements ReplayState<T> {
         final NodeList<Object> list;
         final EvictionPolicy evictionPolicy;
         final Func1<Object, Object> enterTransform;
@@ -661,7 +655,6 @@ public final class ReplaySubject<T> extends Subject<T, T> {
             return true;
         }
 
-        @Override
         public NodeList.Node<Object> replayObserverFromIndex(
                 NodeList.Node<Object> l, SubjectObserver<? super T> observer) {
             while (l != tail()) {
@@ -670,7 +663,6 @@ public final class ReplaySubject<T> extends Subject<T, T> {
             }
             return l;
         }
-        @Override
         public NodeList.Node<Object> replayObserverFromIndexTest(
                 NodeList.Node<Object> l, SubjectObserver<? super T> observer, long now) {
             while (l != tail()) {
@@ -762,9 +754,8 @@ public final class ReplaySubject<T> extends Subject<T, T> {
     /**
      * General API for replay state management.
      * @param <T> the input and output type
-     * @param <I> the index type
      */
-    interface ReplayState<T, I> {
+    interface ReplayState<T> {
         /** @return true if the subject has reached a terminal state. */
         boolean terminated();
         /**
@@ -773,22 +764,6 @@ public final class ReplaySubject<T> extends Subject<T, T> {
          * @return true if the subject has caught up
          */
         boolean replayObserver(SubjectObserver<? super T> observer);
-        /**
-         * Replay the buffered values from an index position and return a new index
-         * @param idx the current index position
-         * @param observer the receiver of events
-         * @return the new index position
-         */
-        I replayObserverFromIndex(
-                I idx, SubjectObserver<? super T> observer);
-        /**
-         * Replay the buffered values from an index position while testing for stale entries and return a new index
-         * @param idx the current index position
-         * @param observer the receiver of events
-         * @return the new index position
-         */
-        I replayObserverFromIndexTest(
-                I idx, SubjectObserver<? super T> observer, long now);
         /**
          * Add an OnNext value to the buffer
          * @param value the value to add
