@@ -32,7 +32,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.operators.observable.NbpOperatorReplay.*;
 import io.reactivex.observables.ConnectableObservable;
 import io.reactivex.observers.TestObserver;
@@ -804,7 +804,7 @@ public class NbpOperatorReplayTest {
 
             @Override
             public void subscribe(final Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 new Thread(new Runnable() {
 
                     @Override
@@ -939,7 +939,7 @@ public class NbpOperatorReplayTest {
         Observable<Integer> firehose = Observable.create(new ObservableConsumable<Integer>() {
             @Override
             public void subscribe(Observer<? super Integer> t) {
-                t.onSubscribe(EmptyDisposable.INSTANCE);
+                t.onSubscribe(DisposableHelper.EMPTY);
                 for (int i = 0; i < m; i++) {
                     t.onNext(i);
                 }

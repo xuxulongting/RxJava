@@ -29,7 +29,7 @@ import io.reactivex.Observer;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -72,7 +72,7 @@ public class NbpOperatorRepeatTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 counter.incrementAndGet();
                 sub.onNext(1);
                 sub.onNext(2);

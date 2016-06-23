@@ -43,7 +43,7 @@ public class NewThreadWorker extends Scheduler.Worker implements Disposable {
     @Override
     public Disposable schedule(final Runnable action, long delayTime, TimeUnit unit) {
         if (disposed) {
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
         return scheduleActual(action, delayTime, unit, null);
     }
@@ -68,7 +68,7 @@ public class NewThreadWorker extends Scheduler.Worker implements Disposable {
             return Disposables.from(f);
         } catch (RejectedExecutionException ex) {
             RxJavaPlugins.onError(ex);
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
     }
 
@@ -88,7 +88,7 @@ public class NewThreadWorker extends Scheduler.Worker implements Disposable {
             return Disposables.from(f);
         } catch (RejectedExecutionException ex) {
             RxJavaPlugins.onError(ex);
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
     }
 

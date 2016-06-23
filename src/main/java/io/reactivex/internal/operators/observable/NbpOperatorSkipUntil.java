@@ -57,7 +57,7 @@ public final class NbpOperatorSkipUntil<T, U> implements NbpOperator<T, T> {
                 frc.dispose();
                 // in case the other emits an onError before the main even sets a subscription
                 if (sus.compareAndSet(false, true)) {
-                    EmptyDisposable.error(t, serial);
+                    DisposableHelper.error(t, serial);
                 } else {
                     serial.onError(t);
                 }

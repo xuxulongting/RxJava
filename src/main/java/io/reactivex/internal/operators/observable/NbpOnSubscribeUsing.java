@@ -45,7 +45,7 @@ public final class NbpOnSubscribeUsing<T, D> implements ObservableConsumable<T> 
         try {
             resource = resourceSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, s);
+            DisposableHelper.error(e, s);
             return;
         }
         
@@ -56,10 +56,10 @@ public final class NbpOnSubscribeUsing<T, D> implements ObservableConsumable<T> 
             try {
                 disposer.accept(resource);
             } catch (Throwable ex) {
-                EmptyDisposable.error(new CompositeException(ex, e), s);
+                DisposableHelper.error(new CompositeException(ex, e), s);
                 return;
             }
-            EmptyDisposable.error(e, s);
+            DisposableHelper.error(e, s);
             return;
         }
         

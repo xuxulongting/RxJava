@@ -70,14 +70,14 @@ public final class NbpOperatorBufferExactBoundary<T, U extends Collection<? supe
                 } catch (Throwable e) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(e, actual);
+                    DisposableHelper.error(e, actual);
                     return;
                 }
                 
                 if (b == null) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(new NullPointerException("The buffer supplied is null"), actual);
+                    DisposableHelper.error(new NullPointerException("The buffer supplied is null"), actual);
                     return;
                 }
                 buffer = b;

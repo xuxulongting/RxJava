@@ -41,7 +41,7 @@ public final class NbpFullArbiter<T> extends FullArbiterPad1 implements Disposab
         this.actual = actual;
         this.resource = resource;
         this.queue = new SpscLinkedArrayQueue<Object>(capacity);
-        this.s = EmptyDisposable.INSTANCE;
+        this.s = DisposableHelper.EMPTY;
     }
 
     @Override

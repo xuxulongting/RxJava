@@ -49,7 +49,7 @@ public final class NbpOperatorToList<T, U extends Collection<? super T>> impleme
         try {
             coll = collectionSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return NbpCancelledSubscriber.INSTANCE;
         }
         return new ToListSubscriber<T, U>(t, coll);

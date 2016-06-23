@@ -137,7 +137,7 @@ public final class NbpOperatorWithLatestFrom<T, U, R> implements NbpOperator<R, 
         
         public void otherError(Throwable e) {
             if (this.s.compareAndSet(null, DisposableHelper.DISPOSED)) {
-                EmptyDisposable.error(e, actual);
+                DisposableHelper.error(e, actual);
             } else {
                 if (this.s.get() != DisposableHelper.DISPOSED) {
                     dispose();

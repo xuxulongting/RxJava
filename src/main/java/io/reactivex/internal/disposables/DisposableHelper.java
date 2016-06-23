@@ -15,6 +15,7 @@ package io.reactivex.internal.disposables;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.functions.Objects;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -24,8 +25,17 @@ import io.reactivex.plugins.RxJavaPlugins;
  */
 public enum DisposableHelper {
     ;
-    
-    public static final Disposable DISPOSED = Disposed.INSTANCE;
+
+    /**
+     * Marker instance compared by identity for indicating a disposed {@link Disposable}. DO NOT
+     * USE this as an arbitrary disposable!
+     */
+    public static final Disposable DISPOSED = Instances.INTERNAL_MARKER;
+
+    /**
+     * Singleton instance of a disposed {@link Disposable}. Suitable for use in public APIs.
+     */
+    public static final Disposable EMPTY = Instances.PUBLIC_SINGLETON;
     
     public static boolean isDisposed(Disposable d) {
         return d == DISPOSED;
@@ -115,8 +125,25 @@ public enum DisposableHelper {
         RxJavaPlugins.onError(new IllegalStateException("Disposable already set!"));
     }
 
-    static enum Disposed implements Disposable {
-        INSTANCE;
+    /**
+     * Subscribes to and immediately completes {@code s}.
+     */
+    public static void complete(Observer<?> s) {
+        s.onSubscribe(EMPTY);
+        s.onComplete();
+    }
+
+    /**
+     * Subscribes to and immediately errors {@code s} with {@code e}.
+     */
+    public static void error(Throwable e, Observer<?> s) {
+        s.onSubscribe(EMPTY);
+        s.onError(e);
+    }
+
+    enum Instances implements Disposable {
+        INTERNAL_MARKER,
+        PUBLIC_SINGLETON;
         
         @Override
         public void dispose() {

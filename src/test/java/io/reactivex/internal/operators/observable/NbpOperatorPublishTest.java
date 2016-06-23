@@ -26,7 +26,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.ConnectableObservable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.*;
@@ -40,7 +40,7 @@ public class NbpOperatorPublishTest {
 
             @Override
             public void subscribe(final Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 new Thread(new Runnable() {
 
                     @Override
@@ -347,7 +347,7 @@ public class NbpOperatorPublishTest {
         Observable<Integer> source = Observable.create(new ObservableConsumable<Integer>() {
             @Override
             public void subscribe(Observer<? super Integer> t) {
-                t.onSubscribe(EmptyDisposable.INSTANCE);
+                t.onSubscribe(DisposableHelper.EMPTY);
                 calls.getAndIncrement();
             }
         });

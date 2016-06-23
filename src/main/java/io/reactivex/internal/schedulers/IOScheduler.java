@@ -214,7 +214,7 @@ public final class IOScheduler extends Scheduler implements SchedulerLifecycle {
         public Disposable schedule(Runnable action, long delayTime, TimeUnit unit) {
             if (tasks.isDisposed()) {
                 // don't schedule, we are unsubscribed
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
 
             return threadWorker.scheduleActual(action, delayTime, unit, tasks);

@@ -114,12 +114,12 @@ public final class NbpOperatorDistinct<T, K> implements NbpOperator<T, T> {
         try {
             coll = predicateSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return NbpCancelledSubscriber.INSTANCE;
         }
         
         if (coll == null) {
-            EmptyDisposable.error(new NullPointerException("predicateSupplier returned null"), t);
+            DisposableHelper.error(new NullPointerException("predicateSupplier returned null"), t);
             return NbpCancelledSubscriber.INSTANCE;
         }
         

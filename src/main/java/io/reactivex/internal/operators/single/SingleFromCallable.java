@@ -16,7 +16,7 @@ package io.reactivex.internal.operators.single;
 import java.util.concurrent.Callable;
 
 import io.reactivex.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class SingleFromCallable<T> extends Single<T> {
 
@@ -29,7 +29,7 @@ public final class SingleFromCallable<T> extends Single<T> {
     @Override
     protected void subscribeActual(SingleSubscriber<? super T> s) {
 
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         try {
             T v = callable.call();
             if (v != null) {

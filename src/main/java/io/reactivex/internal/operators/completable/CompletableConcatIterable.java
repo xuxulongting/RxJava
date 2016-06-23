@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.*;
 import io.reactivex.disposables.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class CompletableConcatIterable extends Completable {
     final Iterable<? extends CompletableConsumable> sources;
@@ -35,13 +35,13 @@ public final class CompletableConcatIterable extends Completable {
         try {
             it = sources.iterator();
         } catch (Throwable e) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(e);
             return;
         }
         
         if (it == null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(new NullPointerException("The iterator returned is null"));
             return;
         }

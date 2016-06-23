@@ -36,12 +36,12 @@ public final class NbpOperatorScanSeed<T, R> implements NbpOperator<R, T> {
         try {
             r = seedSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return NbpEmptySubscriber.INSTANCE;
         }
         
         if (r == null) {
-            EmptyDisposable.error(new NullPointerException("The seed supplied is null"), t);
+            DisposableHelper.error(new NullPointerException("The seed supplied is null"), t);
             return NbpEmptySubscriber.INSTANCE;
         }
         

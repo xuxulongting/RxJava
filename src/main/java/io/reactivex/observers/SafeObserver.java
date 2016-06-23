@@ -15,7 +15,7 @@ package io.reactivex.observers;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**
@@ -52,7 +52,7 @@ public final class SafeObserver<T> implements Observer<T> {
             return;
         }
         if (s == null) {
-            subscription = EmptyDisposable.INSTANCE;
+            subscription = DisposableHelper.EMPTY;
             onError(new NullPointerException("Subscription is null!"));
             return;
         }
@@ -102,7 +102,7 @@ public final class SafeObserver<T> implements Observer<T> {
             CompositeException t2 = new CompositeException(t, new NullPointerException("Subscription not set!"));
             
             try {
-                actual.onSubscribe(EmptyDisposable.INSTANCE);
+                actual.onSubscribe(DisposableHelper.EMPTY);
             } catch (Throwable e) {
                 // can't call onError because the actual's state may be corrupt at this point
                 t2.suppress(e);

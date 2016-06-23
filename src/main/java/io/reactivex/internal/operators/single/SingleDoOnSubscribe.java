@@ -16,7 +16,7 @@ package io.reactivex.internal.operators.single;
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public final class SingleDoOnSubscribe<T> extends Single<T> {
@@ -42,7 +42,7 @@ public final class SingleDoOnSubscribe<T> extends Single<T> {
                 } catch (Throwable ex) {
                     done = true;
                     d.dispose();
-                    s.onSubscribe(EmptyDisposable.INSTANCE);
+                    s.onSubscribe(DisposableHelper.EMPTY);
                     s.onError(ex);
                     return;
                 }

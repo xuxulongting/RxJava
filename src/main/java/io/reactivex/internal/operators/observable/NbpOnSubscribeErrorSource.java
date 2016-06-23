@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.observable;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class NbpOnSubscribeErrorSource<T> implements ObservableConsumable<T> {
     final Supplier<? extends Throwable> errorSupplier;
@@ -34,6 +34,6 @@ public final class NbpOnSubscribeErrorSource<T> implements ObservableConsumable<
         if (error == null) {
             error = new NullPointerException();
         }
-        EmptyDisposable.error(error, s);
+        DisposableHelper.error(error, s);
     }
 }

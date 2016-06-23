@@ -27,7 +27,7 @@ import io.reactivex.ObservableConsumable;
 import io.reactivex.Observer;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -62,7 +62,7 @@ public class NbpCachedObservableTest {
 
             @Override
             public void subscribe(final Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 new Thread(new Runnable() {
 
                     @Override
@@ -195,7 +195,7 @@ public class NbpCachedObservableTest {
         Observable<Integer> firehose = Observable.create(new ObservableConsumable<Integer>() {
             @Override
             public void subscribe(Observer<? super Integer> t) {
-                t.onSubscribe(EmptyDisposable.INSTANCE);
+                t.onSubscribe(DisposableHelper.EMPTY);
                 for (int i = 0; i < m; i++) {
                     t.onNext(i);
                 }

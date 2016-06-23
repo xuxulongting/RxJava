@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.*;
 import io.reactivex.disposables.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.util.NotificationLite;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -194,7 +194,7 @@ public final class PublishSubject<T> extends Subject<T> {
         public void subscribe(final Observer<? super T> t) {
             Object v = get();
             if (v != null) {
-                t.onSubscribe(EmptyDisposable.INSTANCE);
+                t.onSubscribe(DisposableHelper.EMPTY);
                 emit(t, v);
                 return;
             }

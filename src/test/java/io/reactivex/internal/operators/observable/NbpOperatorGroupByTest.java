@@ -31,7 +31,7 @@ import io.reactivex.Optional;
 import io.reactivex.disposables.*;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.GroupedObservable;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.Schedulers;
@@ -187,7 +187,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(final Observer<? super Event> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 System.out.println("*** Subscribing to EventStream ***");
                 subscribeCounter.incrementAndGet();
                 new Thread(new Runnable() {
@@ -599,7 +599,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 sub.onNext(1);
                 sub.onNext(2);
                 sub.onNext(1);
@@ -678,7 +678,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 sub.onNext(1);
                 sub.onNext(2);
                 sub.onNext(1);
@@ -770,7 +770,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 sub.onNext(1);
                 sub.onNext(2);
                 sub.onNext(1);
@@ -847,7 +847,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 sub.onNext(1);
                 sub.onNext(2);
                 sub.onNext(1);
@@ -904,7 +904,7 @@ public class NbpOperatorGroupByTest {
 
             @Override
             public void subscribe(Observer<? super Integer> sub) {
-                sub.onSubscribe(EmptyDisposable.INSTANCE);
+                sub.onSubscribe(DisposableHelper.EMPTY);
                 sub.onNext(1);
                 sub.onNext(2);
                 sub.onNext(1);
@@ -1427,7 +1427,7 @@ public class NbpOperatorGroupByTest {
                 new ObservableConsumable<Integer>() {
                     @Override
                     public void subscribe(Observer<? super Integer> NbpSubscriber) {
-                        NbpSubscriber.onSubscribe(EmptyDisposable.INSTANCE);
+                        NbpSubscriber.onSubscribe(DisposableHelper.EMPTY);
                         NbpSubscriber.onNext(0);
                         NbpSubscriber.onNext(1);
                         NbpSubscriber.onError(e);

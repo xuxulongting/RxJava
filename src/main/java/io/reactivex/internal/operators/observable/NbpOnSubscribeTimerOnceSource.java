@@ -13,7 +13,6 @@
 
 package io.reactivex.internal.operators.observable;
 
-import io.reactivex.internal.disposables.EmptyDisposable;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -69,7 +68,7 @@ public final class NbpOnSubscribeTimerOnceSource implements ObservableConsumable
                 actual.onNext(0L);
                 actual.onComplete();
             }
-            lazySet(EmptyDisposable.INSTANCE);
+            lazySet(DisposableHelper.EMPTY);
         }
         
         public void setResource(Disposable d) {

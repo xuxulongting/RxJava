@@ -22,7 +22,7 @@ import org.junit.*;
 
 import io.reactivex.*;
 import io.reactivex.disposables.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -42,7 +42,7 @@ public class NbpOperatorSubscribeOnTest {
             @Override
             public void subscribe(
                     final Observer<? super Integer> NbpSubscriber) {
-                NbpSubscriber.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpSubscriber.onSubscribe(DisposableHelper.EMPTY);
                 scheduled.countDown();
                 try {
                     try {
@@ -94,7 +94,7 @@ public class NbpOperatorSubscribeOnTest {
 
             @Override
             public void subscribe(Observer<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onError(new RuntimeException("fail"));
             }
 

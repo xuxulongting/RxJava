@@ -43,7 +43,7 @@ public final class NbpSubscriptionLambdaSubscriber<T> implements Observer<T>, Di
             s.dispose();
             RxJavaPlugins.onError(e);
             
-            EmptyDisposable.error(e, actual);
+            DisposableHelper.error(e, actual);
             return;
         }
         if (DisposableHelper.validate(this.s, s)) {

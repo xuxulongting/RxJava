@@ -54,7 +54,7 @@ public final class ExecutorScheduler extends Scheduler {
             return br;
         } catch (RejectedExecutionException ex) {
             RxJavaPlugins.onError(ex);
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
     }
     
@@ -67,7 +67,7 @@ public final class ExecutorScheduler extends Scheduler {
                 return Disposables.from(f);
             } catch (RejectedExecutionException ex) {
                 RxJavaPlugins.onError(ex);
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
         }
         MultipleAssignmentResource<Disposable> first = new MultipleAssignmentResource<Disposable>(Disposables.consumeAndDispose());
@@ -95,7 +95,7 @@ public final class ExecutorScheduler extends Scheduler {
                 return Disposables.from(f);
             } catch (RejectedExecutionException ex) {
                 RxJavaPlugins.onError(ex);
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
         }
         return super.schedulePeriodicallyDirect(run, initialDelay, period, unit);
@@ -120,7 +120,7 @@ public final class ExecutorScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable run) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
             Runnable decoratedRun = RxJavaPlugins.onSchedule(run);
@@ -135,7 +135,7 @@ public final class ExecutorScheduler extends Scheduler {
                     disposed = true;
                     queue.clear();
                     RxJavaPlugins.onError(ex);
-                    return EmptyDisposable.INSTANCE;
+                    return DisposableHelper.EMPTY;
                 }
             }
             
@@ -148,7 +148,7 @@ public final class ExecutorScheduler extends Scheduler {
                 return schedule(run);
             }
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
 
@@ -173,7 +173,7 @@ public final class ExecutorScheduler extends Scheduler {
                 } catch (RejectedExecutionException ex) {
                     disposed = true;
                     RxJavaPlugins.onError(ex);
-                    return EmptyDisposable.INSTANCE;
+                    return DisposableHelper.EMPTY;
                 }
             } else {
                 final Disposable d = HELPER.scheduleDirect(sr, delay, unit);

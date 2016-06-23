@@ -64,7 +64,7 @@ public final class NbpOperatorReplay<T> extends ConnectableObservable<T> {
                     co = connectableFactory.get();
                     observable = selector.apply(co);
                 } catch (Throwable e) {
-                    EmptyDisposable.error(e, child);
+                    DisposableHelper.error(e, child);
                     return;
                 }
                 

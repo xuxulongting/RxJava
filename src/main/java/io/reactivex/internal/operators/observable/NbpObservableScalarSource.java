@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.observable;
 
 import io.reactivex.*;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 /**
  * Represents a constant scalar value.
@@ -29,7 +29,7 @@ public final class NbpObservableScalarSource<T> extends Observable<T> {
 
     @Override
     protected void subscribeActual(Observer<? super T> s) {
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         s.onNext(value);
         s.onComplete();
     }
@@ -46,17 +46,17 @@ public final class NbpObservableScalarSource<T> extends Observable<T> {
                 try {
                     other = mapper.apply(value);
                 } catch (Throwable e) {
-                    EmptyDisposable.error(e, s);
+                    DisposableHelper.error(e, s);
                     return;
                 }
                 if (other == null) {
-                    EmptyDisposable.error(new NullPointerException("The publisher returned by the function is null"), s);
+                    DisposableHelper.error(new NullPointerException("The publisher returned by the function is null"), s);
                     return;
                 }
                 if (other instanceof NbpObservableScalarSource) {
                     @SuppressWarnings("unchecked")
                     NbpObservableScalarSource<U> o = (NbpObservableScalarSource<U>)other;
-                    s.onSubscribe(EmptyDisposable.INSTANCE);
+                    s.onSubscribe(DisposableHelper.EMPTY);
                     s.onNext(o.value);
                     s.onComplete();
                 } else {

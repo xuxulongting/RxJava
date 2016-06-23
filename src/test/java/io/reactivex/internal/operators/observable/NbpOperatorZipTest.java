@@ -31,7 +31,7 @@ import io.reactivex.Optional;
 import io.reactivex.disposables.BooleanDisposable;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.Schedulers;
@@ -625,7 +625,7 @@ public class NbpOperatorZipTest {
         public void subscribe(Observer<? super String> NbpObserver) {
             // just store the variable where it can be accessed so we can manually trigger it
             this.NbpObserver = NbpObserver;
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
         }
 
     }

@@ -239,7 +239,7 @@ public final class NbpOperatorGroupBy<T, K, V> implements NbpOperator<GroupedObs
                 s.onSubscribe(this);
                 drain();
             } else {
-                EmptyDisposable.error(new IllegalStateException("Only one Subscriber allowed!"), s);
+                DisposableHelper.error(new IllegalStateException("Only one Subscriber allowed!"), s);
             }
         }
 

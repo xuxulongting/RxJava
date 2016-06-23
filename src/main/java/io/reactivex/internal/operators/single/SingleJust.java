@@ -14,7 +14,7 @@
 package io.reactivex.internal.operators.single;
 
 import io.reactivex.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class SingleJust<T> extends Single<T> {
 
@@ -26,7 +26,7 @@ public final class SingleJust<T> extends Single<T> {
 
     @Override
     protected void subscribeActual(SingleSubscriber<? super T> s) {
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         s.onSuccess(value);
     }
 

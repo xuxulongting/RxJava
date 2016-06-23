@@ -24,7 +24,7 @@ import org.junit.Test;
 import io.reactivex.*;
 import io.reactivex.disposables.*;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.TestSubscriber;
 
@@ -130,7 +130,7 @@ public class SingleTest {
         Single.create(new SingleConsumable<Object>() {
             @Override
             public void subscribe(SingleSubscriber<? super Object> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onSuccess("Hello");
             }
         }).subscribe(ts);
@@ -144,7 +144,7 @@ public class SingleTest {
         Single.create(new SingleConsumable<Object>() {
             @Override
             public void subscribe(SingleSubscriber<? super Object> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onError(new RuntimeException("fail"));
             }
         }).subscribe(ts);
@@ -198,7 +198,7 @@ public class SingleTest {
         Single<String> s1 = Single.<String>create(new SingleConsumable<String>() {
             @Override
             public void subscribe(SingleSubscriber<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
@@ -220,7 +220,7 @@ public class SingleTest {
         Single<String> s1 = Single.<String>create(new SingleConsumable<String>() {
             @Override
             public void subscribe(SingleSubscriber<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
@@ -425,7 +425,7 @@ public class SingleTest {
         Single<String> s = Single.create(new SingleConsumable<String>() {
             @Override
             public void subscribe(SingleSubscriber<? super String> t) {
-                t.onSubscribe(EmptyDisposable.INSTANCE);
+                t.onSubscribe(DisposableHelper.EMPTY);
                 t.onSuccess("hello");
             }
         });

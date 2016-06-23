@@ -22,7 +22,7 @@ import org.junit.Test;
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public class NbpOperatorDoOnSubscribeTest {
 
@@ -71,7 +71,7 @@ public class NbpOperatorDoOnSubscribeTest {
 
             @Override
             public void subscribe(Observer<? super Integer> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 onSubscribed.incrementAndGet();
                 sref.set(s);
             }

@@ -27,7 +27,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.*;
 import io.reactivex.exceptions.*;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -102,7 +102,7 @@ public class CompletableTest {
             @Override
             public void subscribe(CompletableSubscriber s) {
                 getAndIncrement();
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onComplete();
             }
         });
@@ -128,7 +128,7 @@ public class CompletableTest {
             @Override
             public void subscribe(CompletableSubscriber s) {
                 getAndIncrement();
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onError(new TestException());
             }
         });
@@ -2746,7 +2746,7 @@ public class CompletableTest {
             @Override
             public void subscribe(CompletableSubscriber s) { 
                 name.set(Thread.currentThread().getName());
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onComplete();
             }
         }).subscribeOn(Schedulers.computation());
@@ -2764,7 +2764,7 @@ public class CompletableTest {
             @Override
             public void subscribe(CompletableSubscriber s) { 
                 name.set(Thread.currentThread().getName());
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onError(new TestException());
             }
         }).subscribeOn(Schedulers.computation());

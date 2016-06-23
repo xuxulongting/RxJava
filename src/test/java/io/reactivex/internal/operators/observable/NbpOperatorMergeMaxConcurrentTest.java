@@ -25,7 +25,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableConsumable;
 import io.reactivex.Observer;
 import io.reactivex.flowable.TestHelper;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.schedulers.IOScheduler;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -99,7 +99,7 @@ public class NbpOperatorMergeMaxConcurrentTest {
 
         @Override
         public void subscribe(final Observer<? super String> t1) {
-            t1.onSubscribe(EmptyDisposable.INSTANCE);
+            t1.onSubscribe(DisposableHelper.EMPTY);
             new Thread(new Runnable() {
 
                 @Override

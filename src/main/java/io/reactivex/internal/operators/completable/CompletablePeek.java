@@ -17,7 +17,7 @@ import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public final class CompletablePeek extends Completable {
@@ -82,7 +82,7 @@ public final class CompletablePeek extends Completable {
                     onSubscribe.accept(d);
                 } catch (Throwable ex) {
                     d.dispose();
-                    s.onSubscribe(EmptyDisposable.INSTANCE);
+                    s.onSubscribe(DisposableHelper.EMPTY);
                     s.onError(ex);
                     return;
                 }

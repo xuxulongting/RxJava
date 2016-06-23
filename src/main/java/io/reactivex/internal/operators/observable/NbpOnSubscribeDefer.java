@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.observable;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class NbpOnSubscribeDefer<T> implements ObservableConsumable<T> {
     final Supplier<? extends ObservableConsumable<? extends T>> supplier;
@@ -28,12 +28,12 @@ public final class NbpOnSubscribeDefer<T> implements ObservableConsumable<T> {
         try {
             pub = supplier.get();
         } catch (Throwable t) {
-            EmptyDisposable.error(t, s);
+            DisposableHelper.error(t, s);
             return;
         }
         
         if (pub == null) {
-            EmptyDisposable.error(new NullPointerException("null publisher supplied"), s);
+            DisposableHelper.error(new NullPointerException("null publisher supplied"), s);
             return;
         }
         pub.subscribe(s);

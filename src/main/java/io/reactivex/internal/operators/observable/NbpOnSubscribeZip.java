@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.*;
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
 import io.reactivex.internal.queue.SpscLinkedArrayQueue;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -64,7 +63,7 @@ public final class NbpOnSubscribeZip<T, R> implements ObservableConsumable<R> {
         }
         
         if (count == 0) {
-            EmptyDisposable.complete(s);
+            DisposableHelper.complete(s);
             return;
         }
         

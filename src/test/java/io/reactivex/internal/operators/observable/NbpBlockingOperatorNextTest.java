@@ -26,7 +26,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableConsumable;
 import io.reactivex.Observer;
 import io.reactivex.exceptions.TestException;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.BlockingObservable;
 import io.reactivex.processors.BehaviorProcessor;
 import io.reactivex.schedulers.Schedulers;
@@ -239,7 +239,7 @@ public class NbpBlockingOperatorNextTest {
 
             @Override
             public void subscribe(final Observer<? super Integer> o) {
-                o.onSubscribe(EmptyDisposable.INSTANCE);
+                o.onSubscribe(DisposableHelper.EMPTY);
                 new Thread(new Runnable() {
 
                     @Override

@@ -69,7 +69,7 @@ public final class NbpOperatorBuffer<T, U extends Collection<? super T>> impleme
             } catch (Throwable t) {
                 buffer = null;
                 if (s == null) {
-                    EmptyDisposable.error(t, actual);
+                    DisposableHelper.error(t, actual);
                 } else {
                     s.dispose();
                     actual.onError(t);
@@ -81,7 +81,7 @@ public final class NbpOperatorBuffer<T, U extends Collection<? super T>> impleme
             if (b == null) {
                 Throwable t = new NullPointerException("Empty buffer supplied");
                 if (s == null) {
-                    EmptyDisposable.error(t, actual);
+                    DisposableHelper.error(t, actual);
                 } else {
                     s.dispose();
                     actual.onError(t);

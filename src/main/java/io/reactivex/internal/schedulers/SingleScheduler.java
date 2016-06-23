@@ -89,7 +89,7 @@ public final class SingleScheduler extends Scheduler {
             return Disposables.from(f);
         } catch (RejectedExecutionException ex) {
             RxJavaPlugins.onError(ex);
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
     }
     
@@ -101,7 +101,7 @@ public final class SingleScheduler extends Scheduler {
             return Disposables.from(f);
         } catch (RejectedExecutionException ex) {
             RxJavaPlugins.onError(ex);
-            return EmptyDisposable.INSTANCE;
+            return DisposableHelper.EMPTY;
         }
     }
     
@@ -121,7 +121,7 @@ public final class SingleScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable run, long delay, TimeUnit unit) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
             Runnable decoratedRun = RxJavaPlugins.onSchedule(run);
@@ -141,7 +141,7 @@ public final class SingleScheduler extends Scheduler {
             } catch (RejectedExecutionException ex) {
                 dispose();
                 RxJavaPlugins.onError(ex);
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
             return sr;

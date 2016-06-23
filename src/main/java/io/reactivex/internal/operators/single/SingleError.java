@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.single;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class SingleError<T> extends Single<T> {
 
@@ -39,7 +39,7 @@ public final class SingleError<T> extends Single<T> {
             error = new NullPointerException();
         }
         
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         s.onError(error);
     }
 

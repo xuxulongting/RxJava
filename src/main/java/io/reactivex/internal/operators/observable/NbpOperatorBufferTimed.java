@@ -109,13 +109,13 @@ public final class NbpOperatorBufferTimed<T, U extends Collection<? super T>> im
                     b = bufferSupplier.get();
                 } catch (Throwable e) {
                     dispose();
-                    EmptyDisposable.error(e, actual);
+                    DisposableHelper.error(e, actual);
                     return;
                 }
                 
                 if (b == null) {
                     dispose();
-                    EmptyDisposable.error(new NullPointerException("buffer supplied is null"), actual);
+                    DisposableHelper.error(new NullPointerException("buffer supplied is null"), actual);
                     return;
                 }
                 
@@ -266,14 +266,14 @@ public final class NbpOperatorBufferTimed<T, U extends Collection<? super T>> im
                 } catch (Throwable e) {
                     w.dispose();
                     s.dispose();
-                    EmptyDisposable.error(e, actual);
+                    DisposableHelper.error(e, actual);
                     return;
                 }
                 
                 if (b == null) {
                     w.dispose();
                     s.dispose();
-                    EmptyDisposable.error(new NullPointerException("The supplied buffer is null"), actual);
+                    DisposableHelper.error(new NullPointerException("The supplied buffer is null"), actual);
                     return;
                 }
                 
@@ -436,14 +436,14 @@ public final class NbpOperatorBufferTimed<T, U extends Collection<? super T>> im
                 } catch (Throwable e) {
                     w.dispose();
                     s.dispose();
-                    EmptyDisposable.error(e, actual);
+                    DisposableHelper.error(e, actual);
                     return;
                 }
                 
                 if (b == null) {
                     w.dispose();
                     s.dispose();
-                    EmptyDisposable.error(new NullPointerException("The supplied buffer is null"), actual);
+                    DisposableHelper.error(new NullPointerException("The supplied buffer is null"), actual);
                     return;
                 }
                 

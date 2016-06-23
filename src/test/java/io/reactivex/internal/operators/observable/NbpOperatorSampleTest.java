@@ -48,7 +48,7 @@ public class NbpOperatorSampleTest {
         Observable<Long> source = Observable.create(new ObservableConsumable<Long>() {
             @Override
             public void subscribe(final Observer<? super Long> observer1) {
-                observer1.onSubscribe(EmptyDisposable.INSTANCE);
+                observer1.onSubscribe(DisposableHelper.EMPTY);
                 innerScheduler.schedule(new Runnable() {
                     @Override
                     public void run() {

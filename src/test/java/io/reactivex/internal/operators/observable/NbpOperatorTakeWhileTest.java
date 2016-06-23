@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.Predicate;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.*;
 
@@ -104,7 +104,7 @@ public class NbpOperatorTakeWhileTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 NbpObserver.onNext("one");
                 NbpObserver.onError(new Throwable("test failed"));
             }

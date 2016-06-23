@@ -25,7 +25,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Optional;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.*;
 
 public class NbpOperatorMaterializeTest {
@@ -144,7 +144,7 @@ public class NbpOperatorMaterializeTest {
 
         @Override
         public void subscribe(final Observer<? super String> NbpObserver) {
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             t = new Thread(new Runnable() {
 
                 @Override

@@ -30,7 +30,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.subscriptions.BooleanSubscription;
 import io.reactivex.observables.GroupedObservable;
 import io.reactivex.observers.*;
@@ -50,7 +50,7 @@ public class NbpOperatorRetryTest {
 
             @Override
             public void subscribe(Observer<? super String> t1) {
-                t1.onSubscribe(EmptyDisposable.INSTANCE);
+                t1.onSubscribe(DisposableHelper.EMPTY);
                 System.out.println(count.get() + " @ " + String.valueOf(last - System.currentTimeMillis()));
                 last = System.currentTimeMillis();
                 if (count.getAndDecrement() == 0) {
@@ -246,7 +246,7 @@ public class NbpOperatorRetryTest {
         ObservableConsumable<Integer> onSubscribe = new ObservableConsumable<Integer>() {
             @Override
             public void subscribe(Observer<? super Integer> NbpSubscriber) {
-                NbpSubscriber.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpSubscriber.onSubscribe(DisposableHelper.EMPTY);
                 final int emit = inc.incrementAndGet();
                 NbpSubscriber.onNext(emit);
                 NbpSubscriber.onComplete();
@@ -396,7 +396,7 @@ public class NbpOperatorRetryTest {
 
         @Override
         public void subscribe(final Observer<? super String> o) {
-            o.onSubscribe(EmptyDisposable.INSTANCE);
+            o.onSubscribe(DisposableHelper.EMPTY);
             o.onNext("beginningEveryTime");
             int i = count.getAndIncrement();
             if (i < numFailures) {
@@ -490,7 +490,7 @@ public class NbpOperatorRetryTest {
         ObservableConsumable<String> onSubscribe = new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 subsCount.incrementAndGet();
                 s.onError(new RuntimeException("failed"));
             }
@@ -509,7 +509,7 @@ public class NbpOperatorRetryTest {
         ObservableConsumable<String> onSubscribe = new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 subsCount.incrementAndGet();
                 s.onError(new RuntimeException("failed"));
             }
@@ -833,7 +833,7 @@ public class NbpOperatorRetryTest {
 
             @Override
             public void subscribe(Observer<? super String> o) {
-                o.onSubscribe(EmptyDisposable.INSTANCE);
+                o.onSubscribe(DisposableHelper.EMPTY);
                 for(int i=0; i<NUM_MSG; i++) {
                     o.onNext("msg:" + count.incrementAndGet());
                 }   

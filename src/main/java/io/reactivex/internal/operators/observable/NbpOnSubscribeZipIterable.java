@@ -41,12 +41,12 @@ public final class NbpOnSubscribeZipIterable<T, U, V> implements ObservableConsu
         try {
             it = other.iterator();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return;
         }
         
         if (it == null) {
-            EmptyDisposable.error(new NullPointerException("The iterator returned by other is null"), t);
+            DisposableHelper.error(new NullPointerException("The iterator returned by other is null"), t);
             return;
         }
         
@@ -55,12 +55,12 @@ public final class NbpOnSubscribeZipIterable<T, U, V> implements ObservableConsu
         try {
             b = it.hasNext();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return;
         }
         
         if (!b) {
-            EmptyDisposable.complete(t);
+            DisposableHelper.complete(t);
             return;
         }
         

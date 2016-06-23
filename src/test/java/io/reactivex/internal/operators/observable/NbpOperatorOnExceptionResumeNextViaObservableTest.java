@@ -24,7 +24,7 @@ import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -226,7 +226,7 @@ public class NbpOperatorOnExceptionResumeNextViaObservableTest {
 
         @Override
         public void subscribe(final Observer<? super String> NbpObserver) {
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             System.out.println("TestObservable subscribed to ...");
             t = new Thread(new Runnable() {
 

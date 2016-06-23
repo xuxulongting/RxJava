@@ -30,7 +30,7 @@ import io.reactivex.Scheduler.Worker;
 import io.reactivex.disposables.*;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.*;
 
@@ -78,7 +78,7 @@ public class NbpOperatorMergeTest {
 
             @Override
             public void subscribe(Observer<? super Observable<String>> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 // simulate what would happen in an NbpObservable
                 NbpObserver.onNext(o1);
                 NbpObserver.onNext(o2);
@@ -356,7 +356,7 @@ public class NbpOperatorMergeTest {
 
         @Override
         public void subscribe(Observer<? super String> NbpObserver) {
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             NbpObserver.onNext("hello");
             NbpObserver.onComplete();
         }
@@ -368,7 +368,7 @@ public class NbpOperatorMergeTest {
 
         @Override
         public void subscribe(final Observer<? super String> NbpObserver) {
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             t = new Thread(new Runnable() {
 
                 @Override
@@ -399,7 +399,7 @@ public class NbpOperatorMergeTest {
 
         @Override
         public void subscribe(Observer<? super String> NbpObserver) {
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             for (String s : valuesToReturn) {
                 if (s == null) {
                     System.out.println("throwing exception");
@@ -559,7 +559,7 @@ public class NbpOperatorMergeTest {
             public void subscribe(final Observer<? super Integer> s) {
                 Worker inner = Schedulers.newThread().createWorker();
                 final CompositeDisposable as = new CompositeDisposable();
-                as.add(EmptyDisposable.INSTANCE);
+                as.add(DisposableHelper.EMPTY);
                 as.add(inner);
                 
                 s.onSubscribe(as);
@@ -609,7 +609,7 @@ public class NbpOperatorMergeTest {
             public void subscribe(final Observer<? super Integer> s) {
                 Worker inner = Schedulers.newThread().createWorker();
                 final CompositeDisposable as = new CompositeDisposable();
-                as.add(EmptyDisposable.INSTANCE);
+                as.add(DisposableHelper.EMPTY);
                 as.add(inner);
                 
                 s.onSubscribe(as);
@@ -1019,7 +1019,7 @@ public class NbpOperatorMergeTest {
 
                     @Override
                     public void subscribe(Observer<? super Integer> s) {
-                        s.onSubscribe(EmptyDisposable.INSTANCE);
+                        s.onSubscribe(DisposableHelper.EMPTY);
                         if (i < 500) {
                             try {
                                 Thread.sleep(1);

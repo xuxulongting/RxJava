@@ -74,14 +74,14 @@ public final class NbpOperatorBufferBoundarySupplier<T, U extends Collection<? s
                 } catch (Throwable e) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(e, actual);
+                    DisposableHelper.error(e, actual);
                     return;
                 }
                 
                 if (b == null) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(new NullPointerException("The buffer supplied is null"), actual);
+                    DisposableHelper.error(new NullPointerException("The buffer supplied is null"), actual);
                     return;
                 }
                 buffer = b;
@@ -93,14 +93,14 @@ public final class NbpOperatorBufferBoundarySupplier<T, U extends Collection<? s
                 } catch (Throwable ex) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(ex, actual);
+                    DisposableHelper.error(ex, actual);
                     return;
                 }
                 
                 if (boundary == null) {
                     cancelled = true;
                     s.dispose();
-                    EmptyDisposable.error(new NullPointerException("The boundary publisher supplied is null"), actual);
+                    DisposableHelper.error(new NullPointerException("The boundary publisher supplied is null"), actual);
                     return;
                 }
                 

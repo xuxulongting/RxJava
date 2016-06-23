@@ -31,7 +31,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
@@ -329,7 +329,7 @@ public class NbpOperatorTimeoutWithSelectorTest {
                     return Observable.create(new ObservableConsumable<Integer>() {
                         @Override
                         public void subscribe(Observer<? super Integer> NbpSubscriber) {
-                            NbpSubscriber.onSubscribe(EmptyDisposable.INSTANCE);
+                            NbpSubscriber.onSubscribe(DisposableHelper.EMPTY);
                             enteredTimeoutOne.countDown();
                             // force the timeout message be sent after NbpObserver.onNext(2)
                             while (true) {

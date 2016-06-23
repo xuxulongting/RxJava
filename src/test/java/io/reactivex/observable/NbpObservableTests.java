@@ -30,7 +30,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observables.ConnectableObservable;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.*;
@@ -446,7 +446,7 @@ public class NbpObservableTests {
         ConnectableObservable<String> connectable = Observable.<String>create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(final Observer<? super String> observer) {
-                observer.onSubscribe(EmptyDisposable.INSTANCE);
+                observer.onSubscribe(DisposableHelper.EMPTY);
                 count.incrementAndGet();
                 new Thread(new Runnable() {
                     @Override
@@ -484,7 +484,7 @@ public class NbpObservableTests {
         ConnectableObservable<String> o = Observable.<String>create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(final Observer<? super String> observer) {
-                    observer.onSubscribe(EmptyDisposable.INSTANCE);
+                    observer.onSubscribe(DisposableHelper.EMPTY);
                     new Thread(new Runnable() {
 
                         @Override
@@ -537,7 +537,7 @@ public class NbpObservableTests {
         Observable<String> o = Observable.<String>create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(final Observer<? super String> observer) {
-                    observer.onSubscribe(EmptyDisposable.INSTANCE);
+                    observer.onSubscribe(DisposableHelper.EMPTY);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -582,7 +582,7 @@ public class NbpObservableTests {
         Observable<String> o = Observable.<String>create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(final Observer<? super String> observer) {
-                observer.onSubscribe(EmptyDisposable.INSTANCE);
+                observer.onSubscribe(DisposableHelper.EMPTY);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

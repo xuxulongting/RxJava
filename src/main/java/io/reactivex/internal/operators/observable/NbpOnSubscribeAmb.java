@@ -49,7 +49,7 @@ public final class NbpOnSubscribeAmb<T> implements ObservableConsumable<T> {
         }
         
         if (count == 0) {
-            EmptyDisposable.complete(s);
+            DisposableHelper.complete(s);
             return;
         } else
         if (count == 1) {

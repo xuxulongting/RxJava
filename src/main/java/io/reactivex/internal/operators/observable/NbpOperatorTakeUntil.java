@@ -19,7 +19,6 @@ import io.reactivex.*;
 import io.reactivex.Observable.NbpOperator;
 import io.reactivex.disposables.*;
 import io.reactivex.internal.disposables.*;
-import io.reactivex.internal.subscriptions.SubscriptionHelper;
 import io.reactivex.observers.SerializedObserver;
 
 public final class NbpOperatorTakeUntil<T, U> implements NbpOperator<T, T> {
@@ -44,7 +43,7 @@ public final class NbpOperatorTakeUntil<T, U> implements NbpOperator<T, T> {
             public void onNext(U t) {
                 frc.dispose();
                 if (tus.compareAndSet(false, true)) {
-                    EmptyDisposable.complete(serial);
+                    DisposableHelper.complete(serial);
                 } else {
                     serial.onComplete();
                 }
@@ -53,7 +52,7 @@ public final class NbpOperatorTakeUntil<T, U> implements NbpOperator<T, T> {
             public void onError(Throwable t) {
                 frc.dispose();
                 if (tus.compareAndSet(false, true)) {
-                    EmptyDisposable.error(t, serial);
+                    DisposableHelper.error(t, serial);
                 } else {
                     serial.onError(t);
                 }
@@ -62,7 +61,7 @@ public final class NbpOperatorTakeUntil<T, U> implements NbpOperator<T, T> {
             public void onComplete() {
                 frc.dispose();
                 if (tus.compareAndSet(false, true)) {
-                    EmptyDisposable.complete(serial);
+                    DisposableHelper.complete(serial);
                 } else {
                     serial.onComplete();
                 }

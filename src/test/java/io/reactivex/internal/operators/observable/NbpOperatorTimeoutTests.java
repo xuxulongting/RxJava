@@ -25,7 +25,7 @@ import org.mockito.InOrder;
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.flowable.TestHelper;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.PublishSubject;
@@ -243,7 +243,7 @@ public class NbpOperatorTimeoutTests {
 
                     @Override
                     public void subscribe(Observer<? super String> NbpSubscriber) {
-                        NbpSubscriber.onSubscribe(EmptyDisposable.INSTANCE);
+                        NbpSubscriber.onSubscribe(DisposableHelper.EMPTY);
                         try {
                             timeoutSetuped.countDown();
                             exit.await();

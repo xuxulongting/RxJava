@@ -29,7 +29,7 @@ import io.reactivex.Observer;
 import io.reactivex.exceptions.TestException;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.PublishSubject;
@@ -64,7 +64,7 @@ public class NbpOperatorBufferTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 NbpObserver.onNext("one");
                 NbpObserver.onNext("two");
                 NbpObserver.onNext("three");
@@ -120,7 +120,7 @@ public class NbpOperatorBufferTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 push(NbpObserver, "one", 10);
                 push(NbpObserver, "two", 90);
                 push(NbpObserver, "three", 110);
@@ -152,7 +152,7 @@ public class NbpOperatorBufferTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 push(NbpObserver, "one", 97);
                 push(NbpObserver, "two", 98);
                 /**
@@ -186,7 +186,7 @@ public class NbpOperatorBufferTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 push(NbpObserver, "one", 10);
                 push(NbpObserver, "two", 60);
                 push(NbpObserver, "three", 110);
@@ -199,7 +199,7 @@ public class NbpOperatorBufferTest {
         Observable<Object> openings = Observable.create(new ObservableConsumable<Object>() {
             @Override
             public void subscribe(Observer<Object> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 push(NbpObserver, new Object(), 50);
                 push(NbpObserver, new Object(), 200);
                 complete(NbpObserver, 250);
@@ -212,7 +212,7 @@ public class NbpOperatorBufferTest {
                 return Observable.create(new ObservableConsumable<Object>() {
                     @Override
                     public void subscribe(Observer<? super Object> NbpObserver) {
-                        NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                        NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                         push(NbpObserver, new Object(), 100);
                         complete(NbpObserver, 101);
                     }
@@ -237,7 +237,7 @@ public class NbpOperatorBufferTest {
         Observable<String> source = Observable.create(new ObservableConsumable<String>() {
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 push(NbpObserver, "one", 10);
                 push(NbpObserver, "two", 60);
                 push(NbpObserver, "three", 110);
@@ -253,7 +253,7 @@ public class NbpOperatorBufferTest {
                 return Observable.create(new ObservableConsumable<Object>() {
                     @Override
                     public void subscribe(Observer<? super Object> NbpObserver) {
-                        NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                        NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                         push(NbpObserver, new Object(), 100);
                         push(NbpObserver, new Object(), 200);
                         push(NbpObserver, new Object(), 300);

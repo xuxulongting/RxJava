@@ -17,7 +17,7 @@ import io.reactivex.*;
 import io.reactivex.disposables.*;
 import io.reactivex.exceptions.CompositeException;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public final class SingleUsing<T, U> extends Single<T> {
@@ -46,7 +46,7 @@ public final class SingleUsing<T, U> extends Single<T> {
         try {
             resource = resourceSupplier.get();
         } catch (Throwable ex) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(ex);
             return;
         }
@@ -56,13 +56,13 @@ public final class SingleUsing<T, U> extends Single<T> {
         try {
             s1 = singleFunction.apply(resource);
         } catch (Throwable ex) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(ex);
             return;
         }
         
         if (s1 == null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(new NullPointerException("The Single supplied by the function was null"));
             return;
         }

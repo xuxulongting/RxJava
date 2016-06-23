@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.completable;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class CompletableErrorSupplier extends Completable {
 
@@ -27,7 +27,7 @@ public final class CompletableErrorSupplier extends Completable {
 
     @Override
     protected void subscribeActual(CompletableSubscriber s) {
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         Throwable error;
         
         try {

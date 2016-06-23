@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.*;
 
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.util.NotificationLite;
 
 public final class SingleCache<T> extends Single<T> {
@@ -41,7 +41,7 @@ public final class SingleCache<T> extends Single<T> {
 
         Object o = notification.get();
         if (o != null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             if (NotificationLite.isError(o)) {
                 s.onError(NotificationLite.getError(o));
             } else {
@@ -57,7 +57,7 @@ public final class SingleCache<T> extends Single<T> {
             }
         }
         if (o != null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             if (NotificationLite.isError(o)) {
                 s.onError(NotificationLite.getError(o));
             } else {

@@ -14,12 +14,12 @@
 package io.reactivex.internal.operators.completable;
 
 import io.reactivex.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class CompletableEmpty extends Completable {
     @Override
     public void subscribeActual(CompletableSubscriber s) {
-        s.onSubscribe(EmptyDisposable.INSTANCE);
+        s.onSubscribe(DisposableHelper.EMPTY);
         s.onComplete();
     }
 }

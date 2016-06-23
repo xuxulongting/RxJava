@@ -22,7 +22,7 @@ import org.reactivestreams.*;
 import io.reactivex.annotations.*;
 import io.reactivex.disposables.*;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.internal.functions.Objects;
 import io.reactivex.internal.operators.observable.*;
@@ -51,7 +51,7 @@ public abstract class Observable<T> implements ObservableConsumable<T> {
     static final Observable<Object> EMPTY = create(new ObservableConsumable<Object>() {
         @Override
         public void subscribe(Observer<? super Object> s) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onComplete();
         }
     });
@@ -60,7 +60,7 @@ public abstract class Observable<T> implements ObservableConsumable<T> {
     static final Observable<Object> NEVER = create(new ObservableConsumable<Object>() {
         @Override
         public void subscribe(Observer<? super Object> s) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
         }
     });
     

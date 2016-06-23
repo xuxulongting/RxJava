@@ -13,7 +13,6 @@
 
 package io.reactivex.disposables;
 
-import io.reactivex.internal.disposables.EmptyDisposable;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -57,11 +56,11 @@ public final class Disposables {
     }
 
     public static Disposable empty() {
-        return EmptyDisposable.INSTANCE;
+        return DisposableHelper.EMPTY;
     }
 
     public static Disposable disposed() {
-        return DisposableHelper.DISPOSED;
+        return DisposableHelper.EMPTY;
     }
     
     /** Wraps a Future instance. */

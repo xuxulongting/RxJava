@@ -28,7 +28,7 @@ import io.reactivex.Observable.NbpOperator;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.Schedulers;
 
@@ -41,7 +41,7 @@ public class NbpOperatorOnErrorResumeNextViaFunctionTest {
 
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 NbpObserver.onNext("one");
                 NbpObserver.onError(new Throwable("injected failure"));
                 NbpObserver.onNext("two");
@@ -287,7 +287,7 @@ public class NbpOperatorOnErrorResumeNextViaFunctionTest {
         @Override
         public void subscribe(final Observer<? super String> NbpObserver) {
             System.out.println("TestObservable subscribed to ...");
-            NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+            NbpObserver.onSubscribe(DisposableHelper.EMPTY);
             t = new Thread(new Runnable() {
 
                 @Override

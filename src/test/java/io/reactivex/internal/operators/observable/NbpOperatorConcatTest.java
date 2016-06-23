@@ -30,7 +30,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.*;
 import io.reactivex.flowable.TestHelper;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.observers.*;
 import io.reactivex.schedulers.*;
 import io.reactivex.subjects.*;
@@ -85,7 +85,7 @@ public class NbpOperatorConcatTest {
 
             @Override
             public void subscribe(Observer<? super Observable<String>> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 // simulate what would happen in an NbpObservable
                 NbpObserver.onNext(odds);
                 NbpObserver.onNext(even);
@@ -348,7 +348,7 @@ public class NbpOperatorConcatTest {
 
             @Override
             public void subscribe(Observer<? super Observable<String>> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 // simulate what would happen in an NbpObservable
                 NbpObserver.onNext(Observable.create(w1));
                 NbpObserver.onNext(Observable.create(w2));
@@ -658,7 +658,7 @@ public class NbpOperatorConcatTest {
 
             @Override
             public void subscribe(Observer<? super String> s) {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onNext("hello");
                 s.onComplete();
                 s.onComplete();

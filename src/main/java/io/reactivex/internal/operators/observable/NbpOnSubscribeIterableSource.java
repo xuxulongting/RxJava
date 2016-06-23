@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 import io.reactivex.*;
 import io.reactivex.disposables.BooleanDisposable;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class NbpOnSubscribeIterableSource<T> implements ObservableConsumable<T> {
     final Iterable<? extends T> source;
@@ -31,18 +31,18 @@ public final class NbpOnSubscribeIterableSource<T> implements ObservableConsumab
         try {
             it = source.iterator();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, s);
+            DisposableHelper.error(e, s);
             return;
         }
         boolean hasNext;
         try {
             hasNext = it.hasNext();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, s);
+            DisposableHelper.error(e, s);
             return;
         }
         if (!hasNext) {
-            EmptyDisposable.complete(s);
+            DisposableHelper.complete(s);
             return;
         }
         BooleanDisposable bd = new BooleanDisposable();

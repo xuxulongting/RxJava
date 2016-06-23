@@ -65,7 +65,7 @@ public final class NbpOnSubscribeCombineLatest<T, R> implements ObservableConsum
         }
         
         if (count == 0) {
-            EmptyDisposable.complete(s);
+            DisposableHelper.complete(s);
             return;
         }
         

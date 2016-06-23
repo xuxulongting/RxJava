@@ -35,12 +35,12 @@ public final class NbpOperatorCollect<T, U> implements NbpOperator<U, T> {
         try {
             u = initialSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, t);
+            DisposableHelper.error(e, t);
             return NbpCancelledSubscriber.INSTANCE;
         }
         
         if (u == null) {
-            EmptyDisposable.error(new NullPointerException("The inital supplier returned a null value"), t);
+            DisposableHelper.error(new NullPointerException("The inital supplier returned a null value"), t);
             return NbpCancelledSubscriber.INSTANCE;
         }
         

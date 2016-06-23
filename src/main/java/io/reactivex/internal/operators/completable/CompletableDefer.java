@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.completable;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class CompletableDefer extends Completable {
 
@@ -32,13 +32,13 @@ public final class CompletableDefer extends Completable {
         try {
             c = completableSupplier.get();
         } catch (Throwable e) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(e);
             return;
         }
         
         if (c == null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(new NullPointerException("The completable returned is null"));
             return;
         }

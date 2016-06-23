@@ -82,13 +82,13 @@ public final class NbpOperatorTimeout<T, U, V> implements NbpOperator<T, T> {
                         p = firstTimeoutSelector.get();
                     } catch (Exception ex) {
                         dispose();
-                        EmptyDisposable.error(ex, a);
+                        DisposableHelper.error(ex, a);
                         return;
                     }
                     
                     if (p == null) {
                         dispose();
-                        EmptyDisposable.error(new NullPointerException("The first timeout NbpObservable is null"), a);
+                        DisposableHelper.error(new NullPointerException("The first timeout NbpObservable is null"), a);
                         return;
                     }
                     
@@ -256,13 +256,13 @@ public final class NbpOperatorTimeout<T, U, V> implements NbpOperator<T, T> {
                         p = firstTimeoutSelector.get();
                     } catch (Exception ex) {
                         dispose();
-                        EmptyDisposable.error(ex, a);
+                        DisposableHelper.error(ex, a);
                         return;
                     }
                     
                     if (p == null) {
                         dispose();
-                        EmptyDisposable.error(new NullPointerException("The first timeout NbpObservable is null"), a);
+                        DisposableHelper.error(new NullPointerException("The first timeout NbpObservable is null"), a);
                         return;
                     }
                     

@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.*;
 
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.queue.SpscLinkedArrayQueue;
 
 /**
@@ -148,7 +148,7 @@ public final class UnicastSubject<T> extends Subject<T> {
                 subscriber.lazySet(s); // full barrier in drain
                 drain();
             } else {
-                s.onSubscribe(EmptyDisposable.INSTANCE);
+                s.onSubscribe(DisposableHelper.EMPTY);
                 s.onError(new IllegalStateException("Only a single subscriber allowed."));
             }
         }

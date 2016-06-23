@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.internal.functions.Objects;
 
 /**
@@ -137,7 +137,7 @@ public final class TestScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable run, long delayTime, TimeUnit unit) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             final TimedRunnable timedAction = new TimedRunnable(this, time + unit.toNanos(delayTime), run, counter++);
             queue.add(timedAction);
@@ -153,7 +153,7 @@ public final class TestScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable run) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             final TimedRunnable timedAction = new TimedRunnable(this, 0, run, counter++);
             queue.add(timedAction);

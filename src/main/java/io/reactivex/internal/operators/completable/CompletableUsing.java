@@ -19,7 +19,7 @@ import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public final class CompletableUsing<R> extends Completable {
@@ -47,7 +47,7 @@ public final class CompletableUsing<R> extends Completable {
         try {
             resource = resourceSupplier.get();
         } catch (Throwable e) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(e);
             return;
         }
@@ -57,13 +57,13 @@ public final class CompletableUsing<R> extends Completable {
         try {
             cs = completableFunction.apply(resource);
         } catch (Throwable e) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(e);
             return;
         }
         
         if (cs == null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(new NullPointerException("The completable supplied is null"));
             return;
         }

@@ -167,7 +167,7 @@ public final class ComputationScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable action) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
             return poolWorker.scheduleActual(action, 0, null, serial);
@@ -175,7 +175,7 @@ public final class ComputationScheduler extends Scheduler {
         @Override
         public Disposable schedule(Runnable action, long delayTime, TimeUnit unit) {
             if (disposed) {
-                return EmptyDisposable.INSTANCE;
+                return DisposableHelper.EMPTY;
             }
             
             return poolWorker.scheduleActual(action, delayTime, unit, timed);

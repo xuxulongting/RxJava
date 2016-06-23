@@ -15,7 +15,7 @@ package io.reactivex.internal.operators.single;
 
 import io.reactivex.*;
 import io.reactivex.functions.Supplier;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public final class SingleDefer<T> extends Single<T> {
 
@@ -32,13 +32,13 @@ public final class SingleDefer<T> extends Single<T> {
         try {
             next = singleSupplier.get();
         } catch (Throwable e) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(e);
             return;
         }
         
         if (next == null) {
-            s.onSubscribe(EmptyDisposable.INSTANCE);
+            s.onSubscribe(DisposableHelper.EMPTY);
             s.onError(new NullPointerException("The Single supplied was null"));
             return;
         }

@@ -21,7 +21,7 @@ import org.junit.*;
 
 import io.reactivex.*;
 import io.reactivex.exceptions.TestException;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 
 public class NbpBlockingOperatorToIteratorTest {
 
@@ -50,7 +50,7 @@ public class NbpBlockingOperatorToIteratorTest {
 
             @Override
             public void subscribe(Observer<? super String> NbpObserver) {
-                NbpObserver.onSubscribe(EmptyDisposable.INSTANCE);
+                NbpObserver.onSubscribe(DisposableHelper.EMPTY);
                 NbpObserver.onNext("one");
                 NbpObserver.onError(new TestException());
             }

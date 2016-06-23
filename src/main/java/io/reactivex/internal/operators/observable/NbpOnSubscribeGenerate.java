@@ -16,7 +16,7 @@ package io.reactivex.internal.operators.observable;
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.*;
-import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.internal.disposables.DisposableHelper;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public final class NbpOnSubscribeGenerate<T, S> implements ObservableConsumable<T> {
@@ -38,7 +38,7 @@ public final class NbpOnSubscribeGenerate<T, S> implements ObservableConsumable<
         try {
             state = stateSupplier.get();
         } catch (Throwable e) {
-            EmptyDisposable.error(e, s);
+            DisposableHelper.error(e, s);
             return;
         }
         
